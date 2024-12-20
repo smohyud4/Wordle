@@ -81,6 +81,12 @@ export default function Game() {
 
   function handleInput(event) {
     const {name, value} = event.target;
+    const char = value.charCodeAt(value.length-1)
+
+    if ((char < '65' || char > '90') && // A-Z
+       (char < '97' || char > '122')) {
+      return;
+    }
 
     setWords((prevWords) => ({
       ...prevWords,
