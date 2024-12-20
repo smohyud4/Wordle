@@ -53,7 +53,7 @@ export default function Game() {
     let gameOver = true;
 
     for (let i=0; i < 5; i++) {
-      const char = words[map[guess-1]][i];
+      const char = words[map[guess-1]][i].toLowerCase();
       const charTag = document.getElementById(`${guess}${i}`);
       const keyTag = document.getElementById(char.toUpperCase());
  
@@ -72,6 +72,8 @@ export default function Game() {
         }
         gameOver = false;
       }
+
+      charTag.style.color = 'white';
     }
 
     return gameOver;
@@ -79,9 +81,10 @@ export default function Game() {
 
   function handleInput(event) {
     const {name, value} = event.target;
+
     setWords((prevWords) => ({
       ...prevWords,
-      [name]: value,
+      [name]: value.toUpperCase(),
     }));
   }
 
