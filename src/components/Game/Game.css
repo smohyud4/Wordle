@@ -1,0 +1,42 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 10px; /* Space between grid items */
+    max-width: 600px; /* Optional: Adjust to fit your design */
+    margin: 0 auto; /* Center the grid */
+}
+  
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #a8a6a6;
+    padding: 10px; /* Optional: Adjust for spacing */
+    height: 40px;
+    width: 300px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px; /* Optional: For rounded corners */
+}
+
+span {
+    height: 40px;
+    width: 40px;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 10px;
+    border: 1px solid #a8a6a6;
+}
+
+.blank {
+    background-color: rgb(161, 158, 158);
+}
+
+.correct-position {
+    background-color: darkgoldenrod;
+}
+
+.correct {
+    background-color: lightblue;
+}
