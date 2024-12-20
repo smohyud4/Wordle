@@ -1,20 +1,18 @@
 
 import { useState, useEffect } from 'react';
+import KeyBoard from '../KeyBoard/KeyBoard';
 import { generate } from "random-words";
 import './Game.css';
 
 const map = ['one', 'two', 'three', 'four', 'five', 'six'];
+const rowOne = "QWERTYUIOP";
+const rowTwo = "ASDFGHJKL";
+const rowThree = "ZXCVBNM";
 
 export default function Game() {
 
   const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
   console.log(word);
-  /*const [wordOne, setWordOne] = useState('');
-  const [wordTwo, setWordTwo] = useState('');
-  const [wordThree, setWordThree] = useState('');
-  const [wordFour, setWordFour] = useState('');
-  const [wordFive, setWordFive] = useState('');
-  const [wordSix, setWordSix] = useState(''); */
 
   const [words, setWords] = useState({
     one: '',
@@ -39,6 +37,11 @@ export default function Game() {
         six: ''
       });
       setWord(generate({ minLength: 5, maxLength: 5 }));
+      setGuess(0);
+
+      const listItems = document.querySelectorAll('li');
+      listItems.forEach((li) => {li.className = ''});
+
       alert('You win!');
     } 
 
@@ -50,14 +53,23 @@ export default function Game() {
     let gameOver = true;
 
     for (let i=0; i < 5; i++) {
-      const char = document.getElementById(`${guess}${i}`);
-      if (words[map[guess-1]] === word[i]) {
-        char.classList.add("correct"); 
+      const char = words[map[guess-1]][i];
+      const charTag = document.getElementById(`${guess}${i}`);
+      const keyTag = document.getElementById(char.toUpperCase());
+ 
+      if (char === word[i]) {
+        charTag.classList.add("correct");
+        keyTag.classList.add("correct");
       }
       else {
-        word.includes(words[map[guess-1]][i]) 
-          ?  char.classList.add("correct-position")
-          :  char.classList.add("blank");
+        if (word.includes(char)) {
+          charTag.classList.add("correct-position");
+          keyTag.classList.add("correct-position");
+        }
+        else {
+          charTag.classList.add("blank");
+          keyTag.classList.add("blank");
+        }
         gameOver = false;
       }
     }
@@ -83,7 +95,7 @@ export default function Game() {
     }
   }
 
-  return (
+  return <> 
     <div className="container">
       <div className="grid-item"> 
         {Array.from(words.one).map((char, index) => {
@@ -149,7 +161,8 @@ export default function Game() {
       <button onClick={takeGuess}>
         Enter
       </button>
+      <KeyBoard rowOne={rowOne} rowTwo={rowTwo} rowThree={rowThree} />
     </div>
-  );
+    </>
 }; 
 
