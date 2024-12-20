@@ -3,120 +3,41 @@ import { useState, useEffect } from 'react';
 import { generate } from "random-words";
 import './Game.css';
 
-console.log('Ready!');
+const map = ['one', 'two', 'three', 'four', 'five', 'six'];
 
 export default function Game() {
 
   const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
-  const [wordOne, setWordOne] = useState('');
+  console.log(word);
+  /*const [wordOne, setWordOne] = useState('');
   const [wordTwo, setWordTwo] = useState('');
   const [wordThree, setWordThree] = useState('');
   const [wordFour, setWordFour] = useState('');
   const [wordFive, setWordFive] = useState('');
-  const [wordSix, setWordSix] = useState('');
+  const [wordSix, setWordSix] = useState(''); */
+
+  const [words, setWords] = useState({
+    one: '',
+    two: '',
+    three: '',
+    four: '',
+    five: '',
+    six: ''
+  });
   
   const [guess, setGuess] = useState(0);
 
-  useEffect(() => {
-    let gameOver = true;
+  useEffect(() => { 
 
-    switch (guess) {
-      case 1:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`1${i}`);
-          if (wordOne[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordOne[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      case 2:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`2${i}`);
-          if (wordTwo[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordTwo[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      case 3:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`3${i}`);
-          if (wordThree[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordThree[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      case 4:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`4${i}`);
-          if (wordFour[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordFour[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      case 5:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`5${i}`);
-          if (wordFive[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordFive[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      case 6:
-        for (let i=0; i < 5; i++) {
-          const char = document.getElementById(`6${i}`);
-          if (wordSix[i] === word[i]) {
-            char.classList.add("correct"); 
-          }
-          else {
-            word.includes(wordSix[i]) 
-              ?  char.classList.add("correct-position")
-              :  char.classList.add("blank");
-            gameOver = false;
-          }
-        }
-        break;
-      default:
-        break;
-    }
-
-    if ((gameOver && guess !== 0)) {
-      setGuess(0);
-      setWordOne('');
-      setWordTwo('');
-      setWordThree('');
-      setWordFour('');
-      setWordFive('');
-      setWordSix('');
+    if (checkGuess() || guess === 6) {
+      setWords({
+        one: '',
+        two: '',
+        three: '',
+        four: '',
+        five: '',
+        six: ''
+      });
       setWord(generate({ minLength: 5, maxLength: 5 }));
       alert('You win!');
     } 
@@ -124,79 +45,48 @@ export default function Game() {
   }, [guess]);
 
 
-  function handleInput(event) {
-    const val = event.target.value;
-    switch (guess) {
-      case 0:
-        setWordOne(val);
-        break;
-      case 1:
-        setWordTwo(val);
-        break;
-      case 2:
-        setWordThree(val);
-        break;
-      case 3:
-        setWordFour(val);
-        break;
-      case 4:
-        setWordFive(val);
-        break;
-      case 5:
-        setWordSix(val);
-        break;
-      default:
-        break;
+  function checkGuess() {
+    if (guess === 0) return false;
+    let gameOver = true;
+
+    for (let i=0; i < 5; i++) {
+      const char = document.getElementById(`${guess}${i}`);
+      if (words[map[guess-1]] === word[i]) {
+        char.classList.add("correct"); 
+      }
+      else {
+        word.includes(words[map[guess-1]][i]) 
+          ?  char.classList.add("correct-position")
+          :  char.classList.add("blank");
+        gameOver = false;
+      }
     }
+
+    return gameOver;
+  }
+
+  function handleInput(event) {
+    const {name, value} = event.target;
+    setWords((prevWords) => ({
+      ...prevWords,
+      [name]: value,
+    }));
   }
 
   function takeGuess() {
-    switch (guess) {
-      case 0:
-        if (wordOne.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      case 1:
-        if (wordTwo.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      case 2:
-        if (wordThree.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      case 3:
-        if (wordFour.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      case 4:
-        if (wordFive.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      case 5:
-        if (wordSix.length === 5) {
-          console.log('valid');
-          setGuess(prev => prev+1);
-        }
-        break;
-      default:
-        break;
+    if (words[map[guess]].length === 5) {
+      console.log('valid');
+      setGuess(prev => prev+1);
+    }
+    else {
+      console.log('Not enough letters');
     }
   }
 
   return (
     <div className="container">
       <div className="grid-item"> 
-        {Array.from(wordOne).map((char, index) => {
+        {Array.from(words.one).map((char, index) => {
           return (
             <span id={`1${index}`} key={index}>
               {char}
@@ -205,7 +95,7 @@ export default function Game() {
         })}
       </div>
       <div className="grid-item">
-        {Array.from(wordTwo).map((char, index) => {
+        {Array.from(words.two).map((char, index) => {
           return (
             <span id={`2${index}`} key={index}>
               {char}
@@ -214,7 +104,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item"> 
-        {Array.from(wordThree).map((char, index) => {
+        {Array.from(words.three).map((char, index) => {
           return (
             <span id={`3${index}`} key={index}>
               {char}
@@ -223,7 +113,7 @@ export default function Game() {
         })}
       </div>
       <div className="grid-item">
-        {Array.from(wordFour).map((char, index) => {
+        {Array.from(words.four).map((char, index) => {
           return (
             <span id={`4${index}`} key={index}>
               {char}
@@ -232,7 +122,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item">
-        {Array.from(wordFive).map((char, index) => {
+        {Array.from(words.five).map((char, index) => {
           return (
             <span id={`5${index}`} key={index}>
               {char}
@@ -241,7 +131,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item">
-        {Array.from(wordSix).map((char, index) => {
+        {Array.from(words.six).map((char, index) => {
           return (
             <span id={`6${index}`} key={index}>
               {char}
@@ -252,6 +142,8 @@ export default function Game() {
       <input 
         type='text' 
         maxLength={5}
+        name={map[guess]}
+        value={words[map[guess]]}
         onChange={handleInput}
       />
       <button onClick={takeGuess}>
