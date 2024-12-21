@@ -100,7 +100,7 @@ export default function Game() {
       setGuess(prev => prev+1);
     }
     else {
-      console.log('Not enough letters');
+      alert('Not enough letters');
     }
   }
 
