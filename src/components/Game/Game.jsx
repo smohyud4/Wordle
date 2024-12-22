@@ -29,7 +29,7 @@ export default function Game() {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [guess]); 
+  }, [words]); 
 
   useEffect(() => { 
 
@@ -106,6 +106,24 @@ export default function Game() {
     }
 
     return false;
+  }
+
+  function handleClick(char) {
+    if (words[map[guess]].length >= 5) return; // Prevent adding more than 5 characters
+
+    setWords((prevWords) => {
+      const newWords = { ...prevWords }; // Create a shallow copy of the state
+      newWords[map[guess]] += char; // Append the key to the current word
+      return newWords;
+    });
+  }
+
+  function handleDelete() {
+    setWords((prevWords) => {
+      const newWords = { ...prevWords }; // Create a shallow copy of the state
+      newWords[map[guess]] = newWords[map[guess]].slice(0, -1); // Remove the last character
+      return newWords;
+    });
   }
 
   function handleInput(event) {
@@ -196,11 +214,18 @@ export default function Game() {
         name={map[guess]}
         value={words[map[guess]]}
         onChange={handleInput}
+        onKeyUp={(event) => {
+          if (event.key === "Enter") takeGuess();
+        }}
       />
-      <button onClick={takeGuess}>
-        Enter
-      </button>
-      <KeyBoard rowOne={rowOne} rowTwo={rowTwo} rowThree={rowThree} />
+      <KeyBoard 
+        rowOne={rowOne} 
+        rowTwo={rowTwo} 
+        rowThree={rowThree} 
+        handleClick={handleClick}
+        handleEnter={takeGuess}
+        handleDelete={handleDelete}
+      />
     </div>
     </>
 }; 

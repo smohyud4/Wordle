@@ -10,7 +10,7 @@
     color: black;
 }
 
-.keyBoardContainer ul{
+.keyBoardContainer div {
     width: 90%;
     min-height: 10vh;
     display: flex;
@@ -20,7 +20,7 @@
     margin: 2px;
 }
 
-.keyBoardContainer ul li{
+.keyBoardContainer div button {
     height: 50px;
     width: 50px;
     min-width: 50px;
@@ -43,5 +43,9 @@
     width: 80%;
 }
 #rowThree{
-    width: 70%;
+    width: 85%;
+}
+
+#enter {
+    min-width: 80px;
 }
