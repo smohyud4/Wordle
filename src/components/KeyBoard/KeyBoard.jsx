@@ -39,7 +39,7 @@ export default function KeyBoard({
         })}
       </div>
       <div id="rowThree">
-        <button id='enter' onClick={() => handleEnter()}>
+        <button className='action' onClick={() => handleEnter()}>
           Enter
         </button>
         {rowThree.split('').map((char, index)=> {
@@ -53,7 +53,7 @@ export default function KeyBoard({
             </button>
           )
         })}
-        <button id='enter' onClick={() => handleDelete()}>
+        <button className='action' onClick={() => handleDelete()}>
           Delete
         </button>
        </div>

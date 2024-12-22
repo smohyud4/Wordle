@@ -46,6 +46,6 @@
     width: 85%;
 }
 
-#enter {
+.keyBoardContainer .action {
     min-width: 80px;
 }

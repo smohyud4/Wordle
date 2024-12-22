@@ -154,7 +154,7 @@ export default function Game() {
   return <> 
     <div className="container">
       <div className="grid-item"> 
-        {Array.from(words.one).map((char, index) => {
+        {words.one.split('').map((char, index) => {
           return (
             <span id={`1${index}`} key={index}>
               {char}
@@ -163,7 +163,7 @@ export default function Game() {
         })}
       </div>
       <div className="grid-item">
-        {Array.from(words.two).map((char, index) => {
+        {words.two.split('').map((char, index) => {
           return (
             <span id={`2${index}`} key={index}>
               {char}
@@ -172,7 +172,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item"> 
-        {Array.from(words.three).map((char, index) => {
+        {words.three.split('').map((char, index) => {
           return (
             <span id={`3${index}`} key={index}>
               {char}
@@ -181,7 +181,7 @@ export default function Game() {
         })}
       </div>
       <div className="grid-item">
-        {Array.from(words.four).map((char, index) => {
+        {words.four.split('').map((char, index) => {
           return (
             <span id={`4${index}`} key={index}>
               {char}
@@ -190,7 +190,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item">
-        {Array.from(words.five).map((char, index) => {
+        {words.five.split('').map((char, index) => {
           return (
             <span id={`5${index}`} key={index}>
               {char}
@@ -199,7 +199,7 @@ export default function Game() {
         })} 
       </div>
       <div className="grid-item">
-        {Array.from(words.six).map((char, index) => {
+        {words.six.split('').map((char, index) => {
           return (
             <span id={`6${index}`} key={index}>
               {char}
