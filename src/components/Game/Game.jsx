@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import KeyBoard from '../KeyBoard/KeyBoard';
 import { generate } from "random-words";
 import './Game.css';
@@ -11,9 +11,7 @@ const rowThree = "ZXCVBNM";
 
 export default function Game() {
 
-  //const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
-  const [word, setWord] = useState('stall');
-
+  const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
   const [words, setWords] = useState({
     one: '',
     two: '',
@@ -22,8 +20,16 @@ export default function Game() {
     five: '',
     six: ''
   });
-  
   const [guess, setGuess] = useState(0);
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Focus the input field whenever the guess changes
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [guess]); 
 
   useEffect(() => { 
 
@@ -50,7 +56,6 @@ export default function Game() {
 
   function checkGuess() {
     if (guess === 0) return false;
-    let gameOver = true;
 
     const potential = [];
     const freq = {};
@@ -101,7 +106,6 @@ export default function Game() {
     }
 
     return false;
-    return gameOver;
   }
 
   function handleInput(event) {
@@ -185,7 +189,8 @@ export default function Game() {
           )
         })} 
       </div>
-      <input 
+      <input
+        ref={inputRef} 
         type='text' 
         maxLength={5}
         name={map[guess]}
