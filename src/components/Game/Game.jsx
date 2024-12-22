@@ -11,8 +11,8 @@ const rowThree = "ZXCVBNM";
 
 export default function Game() {
 
-  const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
-  console.log(word);
+  //const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
+  const [word, setWord] = useState('stall');
 
   const [words, setWords] = useState({
     one: '',
@@ -52,6 +52,18 @@ export default function Game() {
     if (guess === 0) return false;
     let gameOver = true;
 
+    const potential = [];
+    const freq = {};
+    for (const char of word) {
+      freq[char] = (freq[char] || 0) + 1;
+    }
+
+    /*
+      In one loop, mark all exact matches in green and letters not included in the word at all as gray
+      With the remaining letters:
+         Mark them as yellow WHILE the temp freq[letter] > 0
+    */
+
     for (let i=0; i < 5; i++) {
       const char = words[map[guess-1]][i].toLowerCase();
       const charTag = document.getElementById(`${guess}${i}`);
@@ -60,22 +72,35 @@ export default function Game() {
       if (char === word[i]) {
         charTag.classList.add("correct");
         keyTag.classList.add("correct");
+        freq[char]--;
+      }
+      else if (!word.includes(char)) {
+        charTag.classList.add("blank");
+        keyTag.classList.add("blank");
       }
       else {
-        if (word.includes(char)) {
-          charTag.classList.add("correct-position");
-          keyTag.classList.add("correct-position");
-        }
-        else {
-          charTag.classList.add("blank");
-          keyTag.classList.add("blank");
-        }
-        gameOver = false;
+        potential.push({char, i});
       }
 
       charTag.style.color = 'white';
     }
 
+    for (const {char, i} of potential) {
+      const charTag = document.getElementById(`${guess}${i}`);
+      const keyTag = document.getElementById(char.toUpperCase());
+
+      if (freq[char] > 0) {
+        charTag.classList.add("correct-position");
+        keyTag.classList.add("correct-position");
+        freq[char]--;
+      } 
+      else {
+        charTag.classList.add("blank");
+        keyTag.classList.add("blank");
+      } 
+    }
+
+    return false;
     return gameOver;
   }
 
