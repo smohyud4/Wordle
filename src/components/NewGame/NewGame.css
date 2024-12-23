@@ -19,3 +19,12 @@
     width: 30%;
     height: 30%;
 }
+
+.modal-content h1 {
+    text-align: center;
+}
+
+.modal-content .buttonContainer {
+    display: flex;
+    justify-content: center;
+}

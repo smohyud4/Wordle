@@ -6,9 +6,11 @@ export default function NewGame({message, reset}) {
     <div className="modal">
       <div className="modal-content">
         <h1>{message || "Game over"}</h1>
-        <button onClick={() => reset()}>
+        <div className="buttonContainer">
+          <button onClick={() => reset()}>
             New Game
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -12,7 +12,6 @@ const rowThree = "ZXCVBNM";
 export default function Game() {
 
   const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
-  console.log(word);
   const [words, setWords] = useState({
     one: '',
     two: '',
@@ -60,7 +59,10 @@ export default function Game() {
     setGuess(0);
 
     const keys = document.querySelectorAll('.keyBoardContainer button');
-    keys.forEach((key) => {key.className = ''});
+    keys.forEach((key) => {
+      if (key.className != 'action')
+        key.className = '';
+    });
 
     setGameOver(false);
   }
