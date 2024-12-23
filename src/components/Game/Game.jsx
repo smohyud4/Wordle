@@ -1,6 +1,6 @@
-
 import { useState, useEffect, useRef } from 'react';
 import KeyBoard from '../KeyBoard/KeyBoard';
+import NewGame from '../NewGame/NewGame';
 import { generate } from "random-words";
 import './Game.css';
 
@@ -12,6 +12,7 @@ const rowThree = "ZXCVBNM";
 export default function Game() {
 
   const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
+  console.log(word);
   const [words, setWords] = useState({
     one: '',
     two: '',
@@ -21,6 +22,8 @@ export default function Game() {
     six: ''
   });
   const [guess, setGuess] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [winnerMessage, setWinnerMessage] = useState("Wordle");
 
   const inputRef = useRef(null);
 
@@ -32,30 +35,40 @@ export default function Game() {
   }, [words]); 
 
   useEffect(() => { 
+    if (guess != 0 && checkGuess()) {
+      setGameOver(true);
+      setWinnerMessage("You Win!");
 
-    if (checkGuess() || guess === 6) {
-      setWords({
-        one: '',
-        two: '',
-        three: '',
-        four: '',
-        five: '',
-        six: ''
-      });
-      setWord(generate({ minLength: 5, maxLength: 5 }));
-      setGuess(0);
-
-      const listItems = document.querySelectorAll('li');
-      listItems.forEach((li) => {li.className = ''});
-
-      alert('You win!');
-    } 
+    }
+    else if (guess == 6) {
+      setGameOver(true);
+      setWinnerMessage("You Lose!");
+    }
 
   }, [guess]);
 
+  function resetGame() {
+    setWords({
+      one: '',
+      two: '',
+      three: '',
+      four: '',
+      five: '',
+      six: ''
+    });
+    setWord(generate({ minLength: 5, maxLength: 5 }));
+    setGuess(0);
+
+    const keys = document.querySelectorAll('.keyBoardContainer button');
+    keys.forEach((key) => {key.className = ''});
+
+    setGameOver(false);
+  }
+
 
   function checkGuess() {
-    if (guess === 0) return false;
+    if (words[map[guess-1]].toLowerCase() == word) 
+      return true;
 
     const potential = [];
     const freq = {};
@@ -151,7 +164,9 @@ export default function Game() {
     }
   }
 
-  return <> 
+  return <>
+    <h3>{word}</h3>
+    {gameOver && <NewGame message={winnerMessage} reset={resetGame}/>} 
     <div className="container">
       <div className="grid-item"> 
         {words.one.split('').map((char, index) => {
