@@ -23,8 +23,23 @@ export default function Game() {
   const [guess, setGuess] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [winnerMessage, setWinnerMessage] = useState("Wordle");
+  const [time, setTime] = useState(0);
 
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    let intervalId;
+    if (!gameOver) {
+      intervalId = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    }
+    else {
+      clearInterval(intervalId);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [gameOver]);
 
   useEffect(() => {
     // Focus the input field whenever the guess changes
@@ -46,6 +61,12 @@ export default function Game() {
 
   }, [guess]);
 
+  function formatTime() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+
   function resetGame() {
     setWords({
       one: '',
@@ -57,6 +78,7 @@ export default function Game() {
     });
     setWord(generate({ minLength: 5, maxLength: 5 }));
     setGuess(0);
+    setTime(0);
 
     const keys = document.querySelectorAll('.keyBoardContainer button');
     keys.forEach((key) => {
@@ -168,7 +190,8 @@ export default function Game() {
 
   return <>
     <h3>{word}</h3>
-    {gameOver && <NewGame message={winnerMessage} reset={resetGame}/>} 
+    <h2>{formatTime()}</h2>
+    {gameOver && <NewGame message={winnerMessage} time={formatTime()} reset={resetGame}/>} 
     <div className="container">
       <div className="grid-item"> 
         {words.one.split('').map((char, index) => {

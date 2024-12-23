@@ -20,7 +20,7 @@
     height: 30%;
 }
 
-.modal-content h1 {
+.modal-content > h1, .modal-content > h2 {
     text-align: center;
 }
 
