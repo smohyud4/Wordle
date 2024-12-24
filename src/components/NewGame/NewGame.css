@@ -17,14 +17,35 @@
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
-    height: 30%;
 }
 
 .modal-content > h1, .modal-content > h2 {
     text-align: center;
 }
 
+.modal-content .inputContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .modal-content .buttonContainer {
     display: flex;
     justify-content: center;
+}
+
+.modal-content .colorGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(5, 1fr);   
+    gap: 2px; 
+    width: 110px;
+    margin: 0 auto;
+}
+  
+.colorGrid > div {
+    width: 20px; 
+    height: 20px;
+    border: 1px solid black; 
+    border-radius: 2px;
 }

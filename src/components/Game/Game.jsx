@@ -11,7 +11,7 @@ const rowThree = "ZXCVBNM";
 
 export default function Game() {
 
-  const [word, setWord] = useState(generate({ minLength: 5, maxLength: 5 }));
+  const [word, setWord] = useState('');
   const [words, setWords] = useState({
     one: '',
     two: '',
@@ -21,10 +21,12 @@ export default function Game() {
     six: ''
   });
   const [guess, setGuess] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
   const [winnerMessage, setWinnerMessage] = useState("Wordle");
   const [time, setTime] = useState(0);
 
+  const length = useRef(5);
+  const colors = useRef([]);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -76,9 +78,12 @@ export default function Game() {
       five: '',
       six: ''
     });
-    setWord(generate({ minLength: 5, maxLength: 5 }));
+
+    console.log(length);
+    setWord(generate({ minLength: length.current, maxLength: length.current }));
     setGuess(0);
     setTime(0);
+    colors.current = [];
 
     const keys = document.querySelectorAll('.keyBoardContainer button');
     keys.forEach((key) => {
@@ -91,10 +96,10 @@ export default function Game() {
 
 
   function checkGuess() {
-    if (words[map[guess-1]].toLowerCase() == word) 
-      return true;
+    let winner = true;
 
     const potential = [];
+    const charColors = Array.from({ length: length });
     const freq = {};
     for (const char of word) {
       freq[char] = (freq[char] || 0) + 1;
@@ -106,7 +111,7 @@ export default function Game() {
          Mark them as yellow WHILE the temp freq[letter] > 0
     */
 
-    for (let i=0; i < 5; i++) {
+    for (let i=0; i < length.current; i++) {
       const char = words[map[guess-1]][i].toLowerCase();
       const charTag = document.getElementById(`${guess}${i}`);
       const keyTag = document.getElementById(char.toUpperCase());
@@ -114,14 +119,18 @@ export default function Game() {
       if (char === word[i]) {
         charTag.classList.add("correct");
         keyTag.classList.add("correct");
+        charColors[i] = "correct"
         freq[char]--;
       }
       else if (!word.includes(char)) {
         charTag.classList.add("blank");
         keyTag.classList.add("blank");
+        charColors[i] = "blank";
+        winner = false;
       }
       else {
         potential.push({char, i});
+        winner = false;
       }
 
       charTag.style.color = 'white';
@@ -134,19 +143,22 @@ export default function Game() {
       if (freq[char] > 0) {
         charTag.classList.add("correct-position");
         keyTag.classList.add("correct-position");
+        charColors[i] = "correct-position";
         freq[char]--;
       } 
       else {
         charTag.classList.add("blank");
         keyTag.classList.add("blank");
+        charColors[i] = "blank";
       } 
     }
 
-    return false;
+    colors.current.push(charColors);
+    return winner;
   }
 
   function handleClick(char) {
-    if (words[map[guess]].length >= 5) return; // Prevent adding more than 5 characters
+    if (words[map[guess]].length >= length.current) return; // Prevent adding more than 5 characters
 
     setWords((prevWords) => {
       const newWords = { ...prevWords }; // Create a shallow copy of the state
@@ -179,7 +191,7 @@ export default function Game() {
   }
 
   function takeGuess() {
-    if (words[map[guess]].length === 5) {
+    if (words[map[guess]].length == length.current) {
       console.log('valid');
       setGuess(prev => prev+1);
     }
@@ -191,7 +203,15 @@ export default function Game() {
   return <>
     <h3>{word}</h3>
     <h2>{formatTime()}</h2>
-    {gameOver && <NewGame message={winnerMessage} time={formatTime()} reset={resetGame}/>} 
+    {gameOver && (
+      <NewGame 
+        message={winnerMessage} 
+        time={formatTime()}
+        colors={colors.current}
+        length={length}
+        reset={resetGame}
+      />
+    )}
     <div className="container">
       <div className="grid-item"> 
         {words.one.split('').map((char, index) => {
@@ -248,9 +268,10 @@ export default function Game() {
         })} 
       </div>
       <input
-        ref={inputRef} 
+        ref={inputRef}
+        id='guessInput' 
         type='text' 
-        maxLength={5}
+        maxLength={length.current}
         name={map[guess]}
         value={words[map[guess]]}
         onChange={handleInput}
