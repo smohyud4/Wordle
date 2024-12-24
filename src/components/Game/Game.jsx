@@ -58,7 +58,7 @@ export default function Game() {
     }
     else if (guess == 6) {
       setGameOver(true);
-      setWinnerMessage("You Lose!");
+      setWinnerMessage(`The word was ${word}!`);
     }
 
   }, [guess]);
@@ -79,7 +79,6 @@ export default function Game() {
       six: ''
     });
 
-    console.log(length);
     setWord(generate({ minLength: length.current, maxLength: length.current }));
     setGuess(0);
     setTime(0);
@@ -213,7 +212,7 @@ export default function Game() {
       />
     )}
     <div className="container">
-      <div className="grid-item"> 
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
         {words.one.split('').map((char, index) => {
           return (
             <span id={`1${index}`} key={index}>
@@ -222,7 +221,7 @@ export default function Game() {
           )
         })}
       </div>
-      <div className="grid-item">
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
         {words.two.split('').map((char, index) => {
           return (
             <span id={`2${index}`} key={index}>
@@ -231,7 +230,7 @@ export default function Game() {
           )
         })} 
       </div>
-      <div className="grid-item"> 
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
         {words.three.split('').map((char, index) => {
           return (
             <span id={`3${index}`} key={index}>
@@ -240,7 +239,7 @@ export default function Game() {
           )
         })}
       </div>
-      <div className="grid-item">
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
         {words.four.split('').map((char, index) => {
           return (
             <span id={`4${index}`} key={index}>
@@ -249,7 +248,7 @@ export default function Game() {
           )
         })} 
       </div>
-      <div className="grid-item">
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
         {words.five.split('').map((char, index) => {
           return (
             <span id={`5${index}`} key={index}>
@@ -258,7 +257,7 @@ export default function Game() {
           )
         })} 
       </div>
-      <div className="grid-item">
+      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
         {words.six.split('').map((char, index) => {
           return (
             <span id={`6${index}`} key={index}>

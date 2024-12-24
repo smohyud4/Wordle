@@ -24,7 +24,7 @@ export default function NewGame({
             <div 
               className="colorGrid" 
               style={{
-                gridTemplateRows: `repeat(${length.current}, 1fr)`, 
+                gridTemplateRows: `repeat(${colors.length}, 1fr)`, 
                 gridTemplateColumns: `repeat(${length.current}, 1fr)`,
                 width: `${length.current*20 + (length.current-1)*2}px`,  
               }}
@@ -35,12 +35,13 @@ export default function NewGame({
             </div>
           </>
         }
+        <br/>
         <div className="inputContainer">
           <label>Easy</label>
           <input
             type="radio"
             name="difficulty"
-            value={3}
+            value={4}
             onChange={handleChange}
           />
           <label>Medium</label>
@@ -58,6 +59,7 @@ export default function NewGame({
             onChange={handleChange}
           />
         </div>
+        <br/>
         <div className="buttonContainer">
           <button onClick={() => reset()}>
             New Game
