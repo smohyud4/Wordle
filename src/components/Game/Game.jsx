@@ -54,9 +54,8 @@ export default function Game() {
     if (guess != 0 && checkGuess()) {
       setGameOver(true);
       setWinnerMessage("You Win!");
-
     }
-    else if (guess == 6) {
+    else if ((guess == 5 && length.current == 7) || guess == 6) {
       setGameOver(true);
       setWinnerMessage(`The word was ${word}!`);
     }
@@ -200,8 +199,6 @@ export default function Game() {
   }
 
   return <>
-    <h3>{word}</h3>
-    <h2>{formatTime()}</h2>
     {gameOver && (
       <NewGame 
         message={winnerMessage} 
@@ -212,6 +209,7 @@ export default function Game() {
       />
     )}
     <div className="container">
+    <h2>{formatTime()}</h2>
       <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
         {words.one.split('').map((char, index) => {
           return (
@@ -257,15 +255,17 @@ export default function Game() {
           )
         })} 
       </div>
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
-        {words.six.split('').map((char, index) => {
-          return (
-            <span id={`6${index}`} key={index}>
-              {char}
-            </span> 
-          )
-        })} 
-      </div>
+      {length.current != 7 &&
+        <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
+          {words.six.split('').map((char, index) => {
+            return (
+              <span id={`6${index}`} key={index}>
+                {char}
+              </span> 
+            )
+          })} 
+        </div>
+      }
       <input
         ref={inputRef}
         id='guessInput' 
@@ -274,6 +274,7 @@ export default function Game() {
         name={map[guess]}
         value={words[map[guess]]}
         onChange={handleInput}
+        placeholder='Enter your guess'
         onKeyUp={(event) => {
           if (event.key === "Enter") takeGuess();
         }}
@@ -289,4 +290,5 @@ export default function Game() {
     </div>
     </>
 }; 
+
 

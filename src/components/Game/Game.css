@@ -46,3 +46,14 @@ span {
 .correct {
     background-color: #6aaa64;
 }
+
+@media (max-width: 600px) {
+    #guessInput {
+        display: none;
+    }
+
+    .container {
+        max-width: 600px;
+        gap: 4px;
+    }
+}

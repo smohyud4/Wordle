@@ -18,7 +18,6 @@ export default function KeyBoard({
             <button
               id={char}
               key={index}
-              className='keyButton'
               onClick={() => handleClick(char)} 
             >
               {char}
@@ -32,7 +31,6 @@ export default function KeyBoard({
             <button
               id={char}
               key={index}
-              className='keyButton'
               onClick={() => handleClick(char)}  
             >
               {char}
@@ -49,7 +47,6 @@ export default function KeyBoard({
             <button
               id={char}
               key={index}
-              className='keyButton'
               onClick={() => handleClick(char)}  
             >
               {char}
@@ -57,7 +54,7 @@ export default function KeyBoard({
           )
         })}
         <button className='action' onClick={() => handleDelete()}>
-          Delete
+          Del
         </button>
        </div>
     </div>

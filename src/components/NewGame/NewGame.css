@@ -26,6 +26,7 @@
 .modal-content .inputContainer {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -45,4 +46,23 @@
     height: 20px;
     border: 1px solid black; 
     border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 50%;
+    }
+    .modal-content .inputContainer {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;    /* Center the items */
+        gap: 5px;               /* Reduce the gap */
+    }
+
+    .modal-content .inputContainer label {
+        font-size: 0.9rem; /* Slightly smaller font size for compact display */
+    }
+
+    .modal-content .inputContainer input {
+        transform: scale(0.9); /* Reduce input size slightly */
+    }
 }
