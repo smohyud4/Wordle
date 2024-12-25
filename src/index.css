@@ -62,4 +62,22 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  .keyBoardContainer button {
+    color: black !important;
+  }
 }
+
+@media (prefers-color-scheme: dark) {
+
+  .keyBoardContainer button {
+    color: white !important;
+  }
+
+  .modal-content {
+      background-color: #333 !important; /* Modal background for dark mode */
+
+  }
+}
+
+
