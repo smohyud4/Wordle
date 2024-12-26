@@ -52,11 +52,6 @@
     .modal-content {
         width: 50%;
     }
-    .modal-content .inputContainer {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center;    /* Center the items */
-        gap: 5px;               /* Reduce the gap */
-    }
 
     .modal-content .inputContainer label {
         font-size: 0.9rem; /* Slightly smaller font size for compact display */
@@ -64,5 +59,13 @@
 
     .modal-content .inputContainer input {
         transform: scale(0.9); /* Reduce input size slightly */
+    }
+}
+
+@media (max-width: 1300px) {
+    .modal-content .inputContainer {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;    /* Center the items */
+        gap: 5px;               /* Reduce the gap */
     }
 }
