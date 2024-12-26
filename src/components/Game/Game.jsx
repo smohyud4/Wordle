@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import KeyBoard from '../KeyBoard/KeyBoard';
 import NewGame from '../NewGame/NewGame';
-//import { generate } from "random-words";
 import './Game.css';
 
 const map = ['one', 'two', 'three', 'four', 'five', 'six'];
