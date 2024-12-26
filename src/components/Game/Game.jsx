@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import KeyBoard from '../KeyBoard/KeyBoard';
 import NewGame from '../NewGame/NewGame';
-import { generate } from "random-words";
+//import { generate } from "random-words";
 import './Game.css';
 
 const map = ['one', 'two', 'three', 'four', 'five', 'six'];
@@ -12,6 +12,7 @@ const rowThree = "ZXCVBNM";
 export default function Game() {
 
   const [word, setWord] = useState('');
+  const [wordLists, setWordLists] = useState({});
   const [words, setWords] = useState({
     one: '',
     two: '',
@@ -28,6 +29,36 @@ export default function Game() {
   const length = useRef(5);
   const colors = useRef([]);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    async function fetchWords() {
+      async function loadWordList(path) {
+        const response = await fetch(path);
+        const text = await response.text();
+        return text.split("\n").map((word) => word.trim());
+      }
+    
+      const paths = [
+        "/data/4_letter_words.txt",
+        "/data/5_letter_words.txt",
+        "/data/7_letter_words.txt"
+      ];
+    
+      const [fourLetterWords, fiveLetterWords, sixLetterWords] = await Promise.all(
+        paths.map(path => loadWordList(path))
+      );
+
+      console.log(fiveLetterWords);
+    
+      setWordLists({
+        4: fourLetterWords,
+        5: fiveLetterWords,
+        7: sixLetterWords,
+      });
+    }
+    
+    fetchWords();
+  }, []);
 
   useEffect(() => {
     let intervalId;
@@ -68,6 +99,11 @@ export default function Game() {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 
+  function generateWord(length) {
+    const randomIndex = Math.floor(Math.random() * wordLists[length].length);
+    return wordLists[length][randomIndex];
+  }
+
   function resetGame() {
     setWords({
       one: '',
@@ -78,7 +114,7 @@ export default function Game() {
       six: ''
     });
 
-    setWord(generate({ minLength: length.current, maxLength: length.current }));
+    setWord(generateWord(length.current));
     setGuess(0);
     setTime(0);
     colors.current = [];
@@ -189,16 +225,18 @@ export default function Game() {
   }
 
   function takeGuess() {
-    if (words[map[guess]].length == length.current) {
-      console.log('valid');
-      setGuess(prev => prev+1);
-    }
-    else {
+    if (words[map[guess]].length != length.current) {
       alert('Not enough letters');
+      return;
     }
-  }
+
+    !wordLists[length.current].includes(words[map[guess]].toLowerCase()) 
+      ? alert('Not in word list')
+      : setGuess(prev => prev+1) 
+  } 
 
   return <>
+    <h3>{word}</h3>
     {gameOver && (
       <NewGame 
         message={winnerMessage} 

@@ -10,7 +10,6 @@ export default function NewGame({
 }) {
 
   function handleChange(event) {
-    console.log("Value:" + event.target.value);
     length.current = parseInt(event.target.value);
   }
 
