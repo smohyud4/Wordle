@@ -26,6 +26,7 @@ export default function Game() {
   const [winnerMessage, setWinnerMessage] = useState("Wordle");
   const [time, setTime] = useState(0);
 
+  const checkWord = useRef(false);
   const length = useRef(5);
   const colors = useRef([]);
   const inputRef = useRef(null);
@@ -47,8 +48,6 @@ export default function Game() {
       const [fourLetterWords, fiveLetterWords, sixLetterWords] = await Promise.all(
         paths.map(path => loadWordList(path))
       );
-
-      console.log(fiveLetterWords);
     
       setWordLists({
         4: fourLetterWords,
@@ -230,19 +229,24 @@ export default function Game() {
       return;
     }
 
-    !wordLists[length.current].includes(words[map[guess]].toLowerCase()) 
-      ? alert('Not in word list')
-      : setGuess(prev => prev+1) 
+    if (checkWord.current) {
+      !wordLists[length.current].includes(words[map[guess]].toLowerCase()) 
+        ? alert('Not in word list')
+        : setGuess(prev => prev+1) 
+    }
+    else {
+      setGuess(prev => prev+1);
+    }
   } 
 
   return <>
-    <h3>{word}</h3>
     {gameOver && (
       <NewGame 
         message={winnerMessage} 
         time={formatTime()}
         colors={colors.current}
         length={length}
+        checkWord={checkWord}
         reset={resetGame}
       />
     )}

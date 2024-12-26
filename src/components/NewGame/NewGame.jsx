@@ -5,12 +5,15 @@ export default function NewGame({
   message, 
   time, 
   colors,  
-  length, 
+  length,
+  checkWord, 
   reset
 }) {
 
   function handleChange(event) {
-    length.current = parseInt(event.target.value);
+    event.target.type === "checkbox"
+      ? checkWord.current = event.target.checked
+      : length.current = parseInt(event.target.value);
   }
 
   return (
@@ -55,6 +58,13 @@ export default function NewGame({
             type="radio"
             name="difficulty"
             value={7}
+            onChange={handleChange}
+          />
+          <label>Validate Guess</label>
+          <input
+            type="checkbox"
+            name="difficulty"
+            value={checkWord.current}
             onChange={handleChange}
           />
         </div>
