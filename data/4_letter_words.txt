@@ -263,7 +263,6 @@ even
 exit
 face
 fade
-fail
 fake
 fall
 fame
@@ -983,7 +982,6 @@ worn
 wove
 wrap
 writ
-xray
 yack
 yank
 yarn
