@@ -48,9 +48,17 @@
     border-radius: 2px;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) and (max-width: 1360px) {
+
     .modal-content {
-        width: 50%;
+        width: 60%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 600px) {
+
+    .modal-content {
+        width: 80%;
     }
 
     .modal-content .inputContainer label {
@@ -62,10 +70,17 @@
     }
 }
 
-@media (max-width: 1300px) {
-    .modal-content .inputContainer {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center;    /* Center the items */
-        gap: 5px;               /* Reduce the gap */
+@media (max-width: 450px) {
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .modal-content .inputContainer label {
+        font-size: 0.8rem; /* Smaller font size for compact display */
+    }
+
+    .modal-content .inputContainer input {
+        transform: scale(0.8); /* Reduce input size further */
     }
 }
