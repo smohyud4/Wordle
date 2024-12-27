@@ -3,7 +3,6 @@ abandon
 ability
 abolish
 abdomen
-abraham
 abyssal
 academy
 account
@@ -60,7 +59,6 @@ almanac
 already
 alright
 alumnus
-alveoli
 amadeus
 amateur
 amazing
@@ -153,13 +151,11 @@ badland
 baggage
 bailout
 balance
-ballboy
 balloon
 baloney
 bananas
 bandage
 bandaid
-bangkok
 bargain
 bashful
 bastard
@@ -692,7 +688,6 @@ islamic
 islands
 isolate
 itemize
-jamaica
 january
 jasmine
 jealous
@@ -700,7 +695,6 @@ jewelry
 journey
 justice
 justify
-kennedy
 keyhole
 keynote
 kingdom
