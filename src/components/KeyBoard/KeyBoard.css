@@ -49,11 +49,24 @@
     min-width: 80px;
 }
 
-@media (max-width: 600px) {
-    .keyBoardContainer {
-        width: 80%;
+@media (max-width: 400px) {
+    .keyBoardContainer div button {
+        height: 30px;
+        width: 22px;
+        min-width: 22px;
+        font-size: 60%;
+        margin: 1px; /* Reduce button spacing if needed */
     }
- 
+    
+    .keyBoardContainer .action {
+        height: 30px;
+        width: 32px;
+        min-width: 32px;
+        font-size: 60%;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
     .keyBoardContainer div button {
         height: 40px;
         width: 30px;
@@ -68,5 +81,4 @@
         min-width: 43px;
         font-size: 80%;
     }
-    
 }

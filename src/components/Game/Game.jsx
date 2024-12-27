@@ -249,8 +249,8 @@ export default function Game() {
         reset={resetGame}
       />
     )}
+    <p id="time">{formatTime()}</p>
     <div className="container">
-    <h2>{formatTime()}</h2>
       <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
         {words.one.split('').map((char, index) => {
           return (
@@ -331,5 +331,3 @@ export default function Game() {
     </div>
     </>
 }; 
-
-
