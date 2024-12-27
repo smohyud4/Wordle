@@ -16,7 +16,8 @@
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 30%;
+    width: 60%;
+    max-width: max-content;
 }
 
 .modal-content > h1, .modal-content > h2 {
@@ -48,14 +49,8 @@
     border-radius: 2px;
 }
 
-@media (min-width: 600px) and (max-width: 1360px) {
 
-    .modal-content {
-        width: 60%;
-    }
-}
-
-@media (min-width: 450px) and (max-width: 600px) {
+@media (min-width: 470px) and (max-width: 600px) {
 
     .modal-content {
         width: 80%;
@@ -70,7 +65,7 @@
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 470px) {
 
     .modal-content {
         width: 90%;
