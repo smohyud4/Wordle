@@ -33,15 +33,20 @@ export default function Game() {
   useEffect(() => {
     async function fetchWords() {
       async function loadWordList(path) {
-        const response = await fetch(path);
-        const text = await response.text();
-        return text.split("\n").map((word) => word.trim());
+        try {
+          const response = await fetch(path);
+          const text = await response.text();
+          return text.split("\n").map((word) => word.trim());
+        } catch (error) {
+          console.error(error);
+          return [];
+        }
       }
     
       const paths = [
-        `${import.meta.env.BASE_URL}data/4_letter_words.txt`,
-        `${import.meta.env.BASE_URL}data/5_letter_words.txt`,
-        `${import.meta.env.BASE_URL}data/7_letter_words.txt`,
+        `${import.meta.env.BASE_URL}/data/4_letter_words.txt`,
+        `${import.meta.env.BASE_URL}/data/5_letter_words.txt`,
+        `${import.meta.env.BASE_URL}/data/7_letter_words.txt`,
       ];
     
       const [fourLetterWords, fiveLetterWords, sixLetterWords] = await Promise.all(
