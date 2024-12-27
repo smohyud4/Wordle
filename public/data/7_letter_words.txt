@@ -1322,8 +1322,6 @@ valuate
 valleys
 vampire
 vanilla
-vanload
-vanpool
 variant
 variety
 vehicle
