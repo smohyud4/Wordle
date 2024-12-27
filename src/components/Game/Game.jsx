@@ -102,6 +102,10 @@ export default function Game() {
     return wordLists[length][randomIndex];
   }
 
+  function getRows() {
+    return length.current == 7 ? 5 : 6;
+  }
+
   function resetGame() {
     setWords({
       one: '',
@@ -250,7 +254,10 @@ export default function Game() {
       />
     )}
     <p id="time">{formatTime()}</p>
-    <div className="container">
+    <div 
+      className="container" 
+      style={{gridTemplateRows: `repeat(${getRows()}, 1fr)`}}
+    >
       <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
         {words.one.split('').map((char, index) => {
           return (

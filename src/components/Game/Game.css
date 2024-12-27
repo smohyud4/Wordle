@@ -1,14 +1,14 @@
 #time {
     font-size: clamp(0.5rem, 4vw, 1.5rem);
     font-weight: bold;
+    margin-top: 0;
     margin-bottom: 2px;
 }
 
 .container {
     display: grid;
     place-items: center;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(1, 1fr);  
     gap: 10px; /* Space between grid items */
     max-width: 600px; /* Optional: Adjust to fit your design */
     margin: 0 auto; /* Center the grid */
@@ -57,9 +57,8 @@ span {
     #guessInput {
         display: none;
     }
-
+    
     .container {
-        max-width: 600px;
         gap: 4px;
     }
 }
