@@ -39,9 +39,9 @@ export default function Game() {
       }
     
       const paths = [
-        "/data/4_letter_words.txt",
-        "/data/5_letter_words.txt",
-        "/data/7_letter_words.txt"
+        `${import.meta.env.BASE_URL}data/4_letter_words.txt`,
+        `${import.meta.env.BASE_URL}data/5_letter_words.txt`,
+        `${import.meta.env.BASE_URL}data/7_letter_words.txt`,
       ];
     
       const [fourLetterWords, fiveLetterWords, sixLetterWords] = await Promise.all(
