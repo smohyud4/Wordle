@@ -37,6 +37,7 @@
 span {
     display: grid;
     place-items: center;
+    height: 50px;
     font-weight: bold;
     font-size: 30px;
     border: 1px solid #a8a6a6;
@@ -67,11 +68,5 @@ span {
     span {
         font-size: 1.5rem;
     }
-
-    .grid-item {
-        height: 30px;
-        padding: 7.5px;
-    }
-
 }
 
