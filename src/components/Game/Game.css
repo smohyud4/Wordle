@@ -3,13 +3,16 @@
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
     display: grid;
     place-items: center;
-    grid-template-columns: repeat(1, 1fr);  
-    gap: 10px; /* Space between grid items */
+    grid-template-columns: repeat(auto-fit, 1fr);  
+    gap: 1vh; /* Space between grid items */
+    width: 100%;
     max-width: 600px; /* Optional: Adjust to fit your design */
     margin: 0 auto; /* Center the grid */
 }
@@ -39,6 +42,11 @@ span {
     font-weight: bold;
     font-size: 30px;
     border: 1px solid #a8a6a6;
+} 
+
+
+#guessInput  {
+    width: 266px;
 }
 
 .blank {
@@ -61,4 +69,9 @@ span {
     .container {
         gap: 4px;
     }
+
+    span {
+        font-size: 1.5rem;
+    }
 }
+

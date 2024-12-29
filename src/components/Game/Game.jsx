@@ -102,13 +102,37 @@ export default function Game() {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 
+  function getContainerWidth(length) {
+    if (window.innerWidth > 600) {
+      return {
+        width: `${(length/5)*50}%`
+      };
+    }
+
+    return {
+      width: `${(length/6)*80}%`
+    };
+  }
+  
+  function calculateSpanStyles(length) {
+    let containerWidth, gap;
+    if (window.innerWidth > 600) {
+      containerWidth = (length / 5) * 50;
+      gap = 10;
+    }
+    else {
+      containerWidth = (length / 6) * 80;
+      gap = 10;
+    }
+
+    const spanWidth = `${(containerWidth / length)+gap}%`;
+    return { width: spanWidth };
+  }
+
+
   function generateWord(length) {
     const randomIndex = Math.floor(Math.random() * wordLists[length].length);
     return wordLists[length][randomIndex];
-  }
-
-  function getRows() {
-    return length.current == 7 ? 5 : 6;
   }
 
   function resetGame() {
@@ -259,60 +283,57 @@ export default function Game() {
       />
     )}
     <p id="time">{formatTime()}</p>
-    <div 
-      className="container" 
-      style={{gridTemplateRows: `repeat(${getRows()}, 1fr)`}}
-    >
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
+    <div className="container">
+      <div className="grid-item" style={getContainerWidth(length.current)}> 
         {words.one.split('').map((char, index) => {
           return (
-            <span id={`1${index}`} key={index}>
+            <span id={`1${index}`} key={index} style={calculateSpanStyles(length.current)}>
               {char}
             </span> 
           )
         })}
       </div>
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
+      <div className="grid-item" style={getContainerWidth(length.current)}>
         {words.two.split('').map((char, index) => {
           return (
-            <span id={`2${index}`} key={index}>
+            <span id={`2${index}`} key={index} style={calculateSpanStyles(length.current)}>
               {char}
             </span> 
           )
         })} 
       </div>
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}> 
+      <div className="grid-item" style={getContainerWidth(length.current)}> 
         {words.three.split('').map((char, index) => {
           return (
-            <span id={`3${index}`} key={index}>
+            <span id={`3${index}`} key={index} style={calculateSpanStyles(length.current)}>
               {char}
             </span> 
           )
         })}
       </div>
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
+      <div className="grid-item" style={getContainerWidth(length.current)}>
         {words.four.split('').map((char, index) => {
           return (
-            <span id={`4${index}`} key={index}>
+            <span id={`4${index}`} key={index} style={calculateSpanStyles(length.current)}>
               {char}
             </span> 
           )
         })} 
       </div>
-      <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
+      <div className="grid-item" style={getContainerWidth(length.current)}>
         {words.five.split('').map((char, index) => {
           return (
-            <span id={`5${index}`} key={index}>
+            <span id={`5${index}`} key={index} style={calculateSpanStyles(length.current)}>
               {char}
             </span> 
           )
         })} 
       </div>
       {length.current != 7 &&
-        <div className="grid-item" style={{width: `${(length.current/5)*50}%`}}>
+        <div className="grid-item" style={getContainerWidth(length.current)}>
           {words.six.split('').map((char, index) => {
             return (
-              <span id={`6${index}`} key={index}>
+              <span id={`6${index}`} key={index} style={calculateSpanStyles(length.current)}>
                 {char}
               </span> 
             )

@@ -5,8 +5,6 @@
     max-width: 1000px; /* Cap the maximum width */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .keyBoardContainer div {
@@ -39,6 +37,7 @@
 }
 
 #rowTwo {
+    margin-left: 3vw;
     width: 80%;
 }
 #rowThree{
@@ -48,42 +47,27 @@
 .keyBoardContainer .action {
     min-width: 80px;
 }
-
-@media (max-width: 400px) {
-    .keyBoardContainer div button {
-        height: 36px;
-        width: 27px;
-        min-width: 27px;
-        font-size: 70%;
-        margin: 1px;
-    }
-
-    .keyBoardContainer div {
-        margin: none;
-    }
-    
-    .keyBoardContainer .action {
-        height: 36px;
-        width: 40px;
-        min-width: 40px;
-        font-size: 60%;
-        margin: 2px;
+ 
+@media (min-width: 420px) and (max-width: 600px) {
+    .keyBoardContainer {
+        align-items: center;
+        justify-content: center;
     }
 }
 
-@media (min-width: 400px) and (max-width: 600px) {
+@media (max-width: 600px) {
     .keyBoardContainer div button {
-        height: 40px;
-        width: 30px;
-        min-width: 30px;
+        height: 36px;
+        width: 6vw;
+        min-width: 6vw;
         font-size: 80%;
-        margin: 2px; /* Reduce button spacing if needed */
+        margin: 1px; /* Reduce button spacing if needed */
     }
     
     .keyBoardContainer .action {
-        height: 40px;
-        width: 43px;
-        min-width: 43px;
+        height: 36px;
+        width: 11vw;
+        min-width: 11vw;
         font-size: 80%;
     }
 }
