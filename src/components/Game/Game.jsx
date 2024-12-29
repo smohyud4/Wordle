@@ -115,17 +115,7 @@ export default function Game() {
   }
   
   function calculateSpanStyles(length) {
-    let containerWidth, gap;
-    if (window.innerWidth > 600) {
-      containerWidth = (length / 5) * 50;
-      gap = 10;
-    }
-    else {
-      containerWidth = (length / 6) * 80;
-      gap = 10;
-    }
-
-    const spanWidth = `${(containerWidth / length)+gap}%`;
+    const spanWidth = `${100/length}%`;
     return { width: spanWidth };
   }
 
