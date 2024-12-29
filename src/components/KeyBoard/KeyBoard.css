@@ -48,7 +48,7 @@
     min-width: 80px;
 }
  
-@media (min-width: 420px) and (max-width: 600px) {
+@media (min-width: 380px) and (max-width: 600px) {
     .keyBoardContainer {
         align-items: center;
         justify-content: center;
@@ -56,6 +56,7 @@
 }
 
 @media (max-width: 600px) {
+    
     .keyBoardContainer div button {
         height: 36px;
         width: 6vw;
