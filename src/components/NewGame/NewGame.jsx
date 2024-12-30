@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react'
 import './NewGame.css'
 
 export default function NewGame({
@@ -9,11 +10,34 @@ export default function NewGame({
   checkWord, 
   reset
 }) {
+ 
+  const [lengthState, setLengthState] = useState(length.current);
 
   function handleChange(event) {
-    event.target.type === "checkbox"
-      ? checkWord.current = event.target.checked
-      : length.current = parseInt(event.target.value);
+    
+    if (event.target.type === "checkbox") {
+      checkWord.current = event.target.checked;
+      return;
+    }
+
+    const { value } = event.target;
+    const numericValue = parseInt(value, 10);
+
+    if (!isNaN(numericValue) && numericValue >= 4 && numericValue <= 7) 
+      setLengthState(numericValue); // Replace with valid input
+    else if (value === "") 
+      setLengthState(""); 
+
+  }
+
+  function handleSubmit() {
+    if (lengthState === "") {
+      alert("Please enter a valid number");
+      return;
+    }
+
+    length.current = lengthState;
+    reset();
   }
 
   return (
@@ -39,26 +63,14 @@ export default function NewGame({
         }
         <br/>
         <div className="inputContainer">
-          <label>Easy</label>
+          <label htmlFor="options">Word Length</label>
           <input
-            type="radio"
-            name="difficulty"
-            value={4}
+            type="number"
+            name="options"
+            value={lengthState}
             onChange={handleChange}
-          />
-          <label>Medium</label>
-          <input
-            type="radio"
-            name="difficulty"
-            value={5}
-            onChange={handleChange}
-          />
-          <label>Hard</label>
-          <input
-            type="radio"
-            name="difficulty"
-            value={7}
-            onChange={handleChange}
+            min={4}
+            max={7}
           />
           <label>Validate Guess</label>
           <input
@@ -70,7 +82,7 @@ export default function NewGame({
         </div>
         <br/>
         <div className="buttonContainer">
-          <button onClick={() => reset()}>
+          <button onClick={handleSubmit}>
             New Game
           </button>
         </div>

@@ -37,7 +37,7 @@
 }
 
 #rowTwo {
-    margin-left: 3vw;
+    margin-left: 2vw;
     width: 80%;
 }
 #rowThree{
@@ -53,10 +53,7 @@
         align-items: center;
         justify-content: center;
     }
-}
 
-@media (max-width: 600px) {
-    
     .keyBoardContainer div button {
         height: 36px;
         width: 6vw;
@@ -70,5 +67,28 @@
         width: 11vw;
         min-width: 11vw;
         font-size: 80%;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .keyBoardContainer {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .keyBoardContainer div button {
+        height: 30px;
+        width: 5vw;
+        min-width: 5vw;
+        font-size: 66%; 
+        margin: 0;
+    }
+    
+    .keyBoardContainer .action {
+        height: 30px;
+        width: 9vw;
+        min-width: 9vw;
+        font-size: 66%;
     }
 }

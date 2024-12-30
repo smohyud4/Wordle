@@ -46,17 +46,19 @@ export default function Game() {
       const paths = [
         `${import.meta.env.BASE_URL}/data/4_letter_words.txt`,
         `${import.meta.env.BASE_URL}/data/5_letter_words.txt`,
+        `${import.meta.env.BASE_URL}/data/6_letter_words.txt`,
         `${import.meta.env.BASE_URL}/data/7_letter_words.txt`,
       ];
     
-      const [fourLetterWords, fiveLetterWords, sixLetterWords] = await Promise.all(
+      const [fourLetterWords, fiveLetterWords, sixLetterWords, sevenLetterWords] = await Promise.all(
         paths.map(path => loadWordList(path))
       );
     
       setWordLists({
         4: fourLetterWords,
         5: fiveLetterWords,
-        7: sixLetterWords,
+        6: sixLetterWords,
+        7: sevenLetterWords,
       });
     }
     
@@ -119,7 +121,6 @@ export default function Game() {
     return { width: spanWidth };
   }
 
-
   function generateWord(length) {
     const randomIndex = Math.floor(Math.random() * wordLists[length].length);
     return wordLists[length][randomIndex];
@@ -135,6 +136,7 @@ export default function Game() {
       six: ''
     });
 
+    setGameOver(false);
     setWord(generateWord(length.current));
     setGuess(0);
     setTime(0);
@@ -145,8 +147,6 @@ export default function Game() {
       if (key.className != 'action')
         key.className = '';
     });
-
-    setGameOver(false);
   }
 
 
