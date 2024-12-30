@@ -49,6 +49,9 @@
     border-radius: 2px;
 }
 
+.modal-content input[type="text"] {
+    width: 10%;
+}
 
 @media (min-width: 470px) and (max-width: 600px) {
 
@@ -60,9 +63,6 @@
         font-size: 0.9rem; /* Slightly smaller font size for compact display */
     }
 
-    .modal-content .inputContainer input {
-        transform: scale(0.9); /* Reduce input size slightly */
-    }
 }
 
 @media (max-width: 470px) {
@@ -73,9 +73,5 @@
 
     .modal-content .inputContainer label {
         font-size: 0.8rem; /* Smaller font size for compact display */
-    }
-
-    .modal-content .inputContainer input {
-        transform: scale(0.8); /* Reduce input size further */
     }
 }

@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import './NewGame.css'
 
+const wordLengths = [4, 5, 6, 7];
+
 export default function NewGame({
   message, 
   time, 
@@ -20,14 +22,7 @@ export default function NewGame({
       return;
     }
 
-    const { value } = event.target;
-    const numericValue = parseInt(value, 10);
-
-    if (!isNaN(numericValue) && numericValue >= 4 && numericValue <= 7) 
-      setLengthState(numericValue); // Replace with valid input
-    else if (value === "") 
-      setLengthState(""); 
-
+    setLengthState(event.target.value); 
   }
 
   function handleSubmit() {
@@ -64,14 +59,15 @@ export default function NewGame({
         <br/>
         <div className="inputContainer">
           <label htmlFor="options">Word Length</label>
-          <input
-            type="number"
-            name="options"
-            value={lengthState}
+          <select 
+            name="options" 
+            value={lengthState} 
             onChange={handleChange}
-            min={4}
-            max={7}
-          />
+          >
+            {wordLengths.map((length, index) => (
+              <option key={index} value={length}>{length}</option>
+            ))}
+          </select>
           <label>Validate Guess</label>
           <input
             type="checkbox"
