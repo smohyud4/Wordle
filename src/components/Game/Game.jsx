@@ -155,6 +155,7 @@ export default function Game() {
 
     const potential = [];
     const charColors = Array.from({ length: length });
+
     const freq = {};
     for (const char of word) {
       freq[char] = (freq[char] || 0) + 1;
