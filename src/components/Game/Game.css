@@ -1,5 +1,5 @@
 #time {
-    font-size: clamp(0.5rem, 4vw, 1.5rem);
+    font-size: clamp(0.5rem, 4vw, 1.3rem);
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 2px;
@@ -55,6 +55,11 @@ span {
 
 .correct-position {
     background-color: #c9b458;
+    animation: pop 0.5s ease-in-out;
+}
+
+.mixed {
+    background: linear-gradient(45deg, #c9b458, #6aaa64);
     animation: pop 0.5s ease-in-out;
 }
 

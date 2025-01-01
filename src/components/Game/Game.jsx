@@ -22,7 +22,7 @@ export default function Game() {
   });
   const [guess, setGuess] = useState(0);
   const [gameOver, setGameOver] = useState(true);
-  const [winnerMessage, setWinnerMessage] = useState("Wordle");
+  const [winnerMessage, setWinnerMessage] = useState("WorddVerse");
   const [time, setTime] = useState(0);
 
   const checkWord = useRef(false);
@@ -89,11 +89,11 @@ export default function Game() {
   useEffect(() => { 
     if (guess != 0 && checkGuess()) {
       setGameOver(true);
-      setWinnerMessage("You Win!");
+      setWinnerMessage(`You guessed ${word}!`);
     }
     else if ((guess == 5 && length.current == 7) || guess == 6) {
       setGameOver(true);
-      setWinnerMessage(`The word was ${word}!`);
+      setWinnerMessage(`The word was ${word}.`);
     }
 
   }, [guess]);
@@ -152,13 +152,14 @@ export default function Game() {
 
   function checkGuess() {
     let winner = true;
-
     const potential = [];
     const charColors = Array.from({ length: length });
-
     const freq = {};
+    const exactMatches = {};
+
     for (const char of word) {
       freq[char] = (freq[char] || 0) + 1;
+      exactMatches[char] = 0;
     }
 
     /*
@@ -173,13 +174,14 @@ export default function Game() {
       const keyTag = document.getElementById(char.toUpperCase());
  
       if (char === word[i]) {
-        charTag.classList.add("correct");
-        keyTag.classList.add("correct");
-        charColors[i] = "correct"
+        charTag.className = "correct";
+        keyTag.className = "correct";
+        charColors[i] = "correct";
+        exactMatches[char]++;
         freq[char]--;
       }
       else if (!word.includes(char)) {
-        charTag.classList.add("blank");
+        charTag.className = "blank";
         keyTag.classList.add("blank");
         charColors[i] = "blank";
         winner = false;
@@ -197,13 +199,20 @@ export default function Game() {
       const keyTag = document.getElementById(char.toUpperCase());
 
       if (freq[char] > 0) {
-        charTag.classList.add("correct-position");
-        keyTag.classList.add("correct-position");
+        charTag.className = "correct-position";
         charColors[i] = "correct-position";
+
+        if (exactMatches[char] > 0 && exactMatches[char] < freq[char]+1) {
+          keyTag.classList.remove("correct");
+          keyTag.classList.add("mixed");
+        }
+        else {
+          keyTag.classList.add("correct-position");
+        }
         freq[char]--;
       } 
       else {
-        charTag.classList.add("blank");
+        charTag.className = "blank";
         keyTag.classList.add("blank");
         charColors[i] = "blank";
       } 
@@ -263,18 +272,8 @@ export default function Game() {
   } 
 
   return <>
-    {gameOver && (
-      <NewGame 
-        message={winnerMessage} 
-        time={formatTime()}
-        colors={colors.current}
-        length={length}
-        checkWord={checkWord}
-        reset={resetGame}
-      />
-    )}
     <p id="time">{formatTime()}</p>
-    <div className="container">
+    <main className="container">
       <div className="grid-item" style={getContainerWidth(length.current)}> 
         {words.one.split('').map((char, index) => {
           return (
@@ -352,6 +351,16 @@ export default function Game() {
         handleEnter={takeGuess}
         handleDelete={handleDelete}
       />
-    </div>
+    </main>
+    {gameOver && (
+      <NewGame 
+        message={winnerMessage} 
+        time={formatTime()}
+        colors={colors.current}
+        length={length}
+        checkWord={checkWord}
+        reset={resetGame}
+      />
+    )}
     </>
 }; 

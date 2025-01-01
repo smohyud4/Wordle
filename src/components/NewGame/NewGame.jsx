@@ -16,7 +16,6 @@ export default function NewGame({
   const [lengthState, setLengthState] = useState(length.current);
 
   function handleChange(event) {
-    
     if (event.target.type === "checkbox") {
       checkWord.current = event.target.checked;
       return;
@@ -36,10 +35,10 @@ export default function NewGame({
   }
 
   return (
-    <div className="modal">
+    <div role="dialog" className="modal">
       <div className="modal-content">
         <h1>{message || "Game over"}</h1>
-        {message != "Wordle" &&
+        {message != "WorddVerse" &&
           <>
             <h2>Time: {time}</h2>
             <div 
@@ -57,7 +56,7 @@ export default function NewGame({
           </>
         }
         <br/>
-        <div className="inputContainer">
+        <form className="inputContainer">
           <label htmlFor="options">Word Length</label>
           <select 
             name="options" 
@@ -75,7 +74,7 @@ export default function NewGame({
             value={checkWord.current}
             onChange={handleChange}
           />
-        </div>
+        </form>
         <br/>
         <div className="buttonContainer">
           <button onClick={handleSubmit}>
