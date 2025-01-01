@@ -20,7 +20,7 @@
 .grid-item {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     gap: 10px;
     border: 1px solid #a8a6a6;
     padding: 10px; 
