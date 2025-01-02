@@ -44,11 +44,11 @@ export default function Game() {
       }
     
       const paths = [
-        `${import.meta.env.BASE_URL}/data/4_letter_words.txt`,
-        `${import.meta.env.BASE_URL}/data/5_letter_words.txt`,
-        `${import.meta.env.BASE_URL}/data/6_letter_words.txt`,
-        `${import.meta.env.BASE_URL}/data/7_letter_words.txt`,
-      ];
+        `/data/4_letter_words.txt`,
+        `/data/5_letter_words.txt`,
+        `/data/6_letter_words.txt`,
+        `/data/7_letter_words.txt`,
+      ]; 
     
       const [fourLetterWords, fiveLetterWords, sixLetterWords, sevenLetterWords] = await Promise.all(
         paths.map(path => loadWordList(path))
